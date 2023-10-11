@@ -1,0 +1,43 @@
+from turtle import Turtle
+bolge=[(0,0),(-10,0),(-20,0)]
+UP=90
+DOWN=270
+LEFT=180
+RIGHT=0
+class Snake:
+    def __init__(self):
+        self.yilanlar=[]
+        self.create_snake()
+        self.head=self.yilanlar[0]
+    def create_snake(self):
+        for position in bolge:
+            self.add_segment(position)
+
+    def move(self):
+        for seg_num in range(len(self.yilanlar) - 1, 0, -1):
+            new_x = self.yilanlar[seg_num - 1].xcor()
+            new_y = self.yilanlar[seg_num - 1].ycor()
+            self.yilanlar[seg_num].goto(new_x, new_y)
+        self.head.forward(20)
+    def extend(self):
+        self.add_segment(self.yilanlar[-1].position())
+
+    def add_segment(self,position):
+        turtle = Turtle(shape="square")
+        turtle.color("white")
+        turtle.penup()
+        turtle.goto(position)
+        self.yilanlar.append(turtle)
+
+    def up(self):
+        if self.head.heading()!=DOWN:
+            self.head.setheading(UP)
+    def down(self):
+        if self.head.heading()!= UP:
+            self.head.setheading(DOWN)
+    def left(self):
+        if self.head.heading()!=RIGHT:
+            self.head.setheading(LEFT)
+    def right(self):
+        if self.head.heading()!=LEFT:
+            self.head.setheading(RIGHT)
